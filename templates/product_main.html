@@ -1,0 +1,90 @@
+{%extends "base.html"%}
+
+{%block body%}
+
+
+<form method="POST">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+            <div class="form-group">
+                <select name="select1" class="form-control">
+                    <option {{option1}} value="30">30 дней</option>
+                    <option {{option2}} value="90">90 дней</option>
+                    <option {{option3}} value="365">365 дней</option>
+                </select>
+            </div>
+        </span>
+        <button type="submit" class="btn btn-primary">Применить</button>
+    </div>
+</form>
+<!------------------------------------------------------------------------------>
+
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {%for k, v in data2.items()%}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-body">
+                    <h2 class="fw-normal card-title pricing-card-title">
+                        <ya-tr-span>Загружено <img src="/static/ok/ok1.png" class="responsive" width="30"> <br>
+                        </ya-tr-span>
+                        <small
+                                class="text-muted fw-light">
+                            <ya-tr-span>{{k.strftime('%d-%m-%Y')}}</ya-tr-span>
+                        </small>
+                        <h3 class="fw-normal card-title pricing-card-title">
+                            <ya-tr-span> Количество: {{v}}<br>
+                        </h3>
+                    </h2>
+
+                    <a href="/product/{{k}}">
+                        <button type="button" class="w-100 btn btn-lg btn-primary">
+                            <ya-tr-span data-index="23-0"
+                                        data-translated="true" data-source-lang="en" data-target-lang="ru"
+                                        data-value="Contact us" data-translation="Подробнее" data-ch="0"
+                                        data-type="trSpan">Подробнее
+                            </ya-tr-span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+
+<!-- <script>
+    $(document).ready(function () {
+        $('#uploadImage').submit(function (event) {
+            if ($('#input_loading').val()) {
+                event.preventDefault();
+                $('#targetLayer').hide();
+                $(this).ajaxSubmit({
+                    target: '#targetLayer',
+                    beforeSubmit: function () {
+                        $('.progress-bar').width('50%');
+                    },
+                    uploadProgress: function (event, position, total, percentageComplete) {
+                        $('.progress-bar').animate({
+                            width: percentageComplete + '%'
+                        }, {
+                            duration: 1000
+                        });
+                    },
+                    success: function (data) {
+                    
+                        $('#targetLayer').show();
+                        $('#targetLayer').append(data.htmlresponse);
+                    },
+                    resetForm: true
+                });
+            }
+            return false;
+        });
+    });
+</script> -->
+
+
+{%endblock%}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block body %}
+<form method="POST">
+<div class="input-group mb-3">
+	<input oninput="this.value = this.value.toUpperCase()" value="{{value1}}" type="search" name="search_art"
+		class="form-control form-control-lg" placeholder="Отсканируйте штрихкод" autofocus
+		onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+	<button type="submit" class="btn btn-primary">Принять</button>	
+</div>
+</form>
+
+
+
+
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {%for i in date2%}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                    <h3 class="my-0 ">{{i}}</h3>
+                </div>
+                <div class="card-body">
+                    <h2 class="fw-normal card-title pricing-card-title">
+                        <ya-tr-span>      <br>
+                        </ya-tr-span><small
+                            class="text-muted fw-light"><ya-tr-span>   </ya-tr-span></small>
+                    </h2>
+                    <a href="/{{i.title}}/{{i.id}}">
+                        <button type="button" class="w-100 btn btn-lg btn-primary"><ya-tr-span data-index="23-0"
+                                data-translated="true" data-source-lang="en" data-target-lang="ru"
+                                data-value="Contact us" data-translation="Подробнее" data-ch="0"
+                                data-type="trSpan">Подробнее</ya-tr-span></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+
+
+
+{%endblock%}
