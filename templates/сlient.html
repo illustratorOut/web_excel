@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<style>
+        a {color: #000 !important;text-decoration: none}
+        a {text-decoration: none; /* Отменяем подчеркивание у ссылки */}
+
+
+
+
+
+
+
+</style>
+
+
+<form method="POST">
+    <div class="input-group mb-3">
+        <input oninput="this.value = this.value.toUpperCase()" value="{{value1}}" type="search" name="search_art"
+               class="form-control form-control-lg" placeholder="Введите UserId пользователя" autofocus>
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+</form>
+
+
+{%if date3%}
+
+<div class="container">
+    <div class="row row-cols-4">
+        <div class="col">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label">Статус: Принятые</label>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox">
+                <label class="form-check-label">dhggdf</label>
+            </div>
+        </div>
+        <div class="col">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Все</option>
+                <option value="Принятые">Принятые</option>
+                <option value="Непринятые">Непринятые</option>
+            </select>
+        </div>
+        <div class="col text-end">
+            <form action="/save_excel/{{date3[0].userId}}" method="POST">
+                <button type="submit" class="btn btn-outline-success"><img src="/static/Excel_2013_23480.png" width="30"
+                                                                           alt="">Экспорт в Excel
+                </button>
+            </form>
+        </div>
+    </div>
+    <br>
+
+
+    <!-------------------------------------------------------------------->
+
+
+    <div align="center"><h1>{{date3[0].buyer}}</h1></div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Время загрузки</th>
+            <th scope="col">Цена</th>
+        </tr>
+        </thead>
+        {% endif %}
+
+
+        {%for i in date3%}
+
+        <tbody>
+        {%if i.status != "Принят"%}
+        <tr>
+            <th scope="row">{{i.id}}</th>
+            <td><a href="/{{i.title}}/{{i.id}}">{{i.title}}</a></td>
+            <td>{{i.time.strftime('%d-%m-%Y')}}</td>
+            <td>{{i.price}}</td>
+        </tr>
+        </tbody>
+
+
+        {%elif i.status == "Принят"%}
+        <tr style="background-color: green;">
+            <th scope="row">{{i.id}}</th>
+            <td><a href="/{{i.title}}/{{i.id}}">{{i.title}}</a></td>
+            <td>{{i.time.strftime('%d-%m-%Y')}}</td>
+            <td>{{i.price}}</td>
+        </tr>
+        {% endif %}
+
+        {%endfor%}
+
+    </table>
+
+    {% endblock %}

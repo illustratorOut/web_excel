@@ -1,0 +1,63 @@
+{%extends "base.html"%}
+
+{%block body%}
+<!-- <form name="uploadImage" id="uploadImage" action="/loading" method="POST" enctype="multipart/form-data" class="row g-3"> -->
+<form name="uploadImage" id="uploadImage" action="/loading" method="POST" enctype="multipart/form-data" class="row g-3">
+    <div>
+        <label {{hidden1}} for="formFileLg" class="form-label">Загрузите EXCEL файл c расширением .xlsx</label>
+    </div>
+    <div {{hidden}} class="alert alert-success" role="alert">
+        {{f}}
+    </div>
+    <div class="col-sm-7">
+        <input {{hidden1}} name="input_loading" id="input_loading" class="form-control form-control-lg" type="file"
+               accept=".xls, .xlsx"> <br>
+    </div>
+    <div class="col-sm">
+        <input {{hidden1}} value="Загрузить файл в БД" class="form-control form-control-lg btn btn-primary"
+               type="submit">
+        <!-- <button {{hidden1}} class="form-control form-control-lg btn btn-primary" type="submit">Загрузить файл вБД</button> -->
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%"></div>
+    </div>
+    <div id="targetLayer" style="display:none;"></div>
+</form>
+
+
+
+
+<!-- <script>
+    $(document).ready(function () {
+        $('#uploadImage').submit(function (event) {
+            if ($('#input_loading').val()) {
+                event.preventDefault();
+                $('#targetLayer').hide();
+                $(this).ajaxSubmit({
+                    target: '#targetLayer',
+                    beforeSubmit: function () {
+                        $('.progress-bar').width('50%');
+                    },
+                    uploadProgress: function (event, position, total, percentageComplete) {
+                        $('.progress-bar').animate({
+                            width: percentageComplete + '%'
+                        }, {
+                            duration: 1000
+                        });
+                    },
+                    success: function (data) {
+                    
+                        $('#targetLayer').show();
+                        $('#targetLayer').append(data.htmlresponse);
+                    },
+                    resetForm: true
+                });
+            }
+            return false;
+        });
+    });
+</script> -->
+
+
+{%endblock%}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<!--  -->
+<form method="POST">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+            <div class="form-group">
+                <select name="select1" class="form-control">
+                    <option {{option1}} value="1">30 дней</option>
+                    <option {{option2}} value="2">90 дней</option>
+                    <option {{option3}} value="3">365 дней</option>
+                </select>
+            </div>
+        </span>
+        <input oninput="this.value = this.value.toUpperCase()" value="{{value1}}" type="search" name="search_art"
+            class="form-control form-input" placeholder="Введите артикул" autofocus
+            onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+</form>
+<br> <br>
+
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {%for i in data2%}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                    {%if i.status != "Принят"%}
+                    <h3 class="my-0 ">{{i.title}}</h3>
+                    {%elif i.status == "Принят"%}
+                    <h3 class="my-0" style="background-color: green;">{{i.title}}</h3>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h2 class="fw-normal card-title pricing-card-title">
+                        <ya-tr-span>{{i.proizvod}}<br>
+                        </ya-tr-span><small
+                            class="text-muted fw-light"><ya-tr-span>{{i.time.strftime('%d-%m-%Y')}}</ya-tr-span></small>
+                        <h3 class="fw-normal card-title pricing-card-title"><ya-tr-span>{{i.price}} рублей <br>
+                    </h2>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li><ya-tr-span>В том числе 30 пользователей</ya-tr-span></li>
+                        <li><ya-tr-span data-index="21-0" data-translated="true" data-source-lang="en"
+                                data-target-lang="ru" data-value="15 GB of storage" data-translation="15 ГБ памяти"
+                                data-ch="0" data-type="trSpan">15 ГБ
+                                памяти</ya-tr-span></li>
+                        <li><ya-tr-span data-index="22-0" data-translated="true" data-source-lang="en"
+                                data-target-lang="ru" data-value="Phone and email support"
+                                data-translation="Поддержка по телефону и электронной почте" data-ch="0"
+                                data-type="trSpan">Поддержка по телефону и электронной почте</ya-tr-span></li>
+                        <li>Доступ к справочному центру</li>
+                    </ul>
+                    <a href="/{{i.title}}/{{i.id}}">
+                        <button type="button" class="w-100 btn btn-lg btn-primary"><ya-tr-span data-index="23-0"
+                                data-translated="true" data-source-lang="en" data-target-lang="ru"
+                                data-value="Contact us" data-translation="Подробнее" data-ch="0"
+                                data-type="trSpan">Подробнее</ya-tr-span></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+{% endblock %}

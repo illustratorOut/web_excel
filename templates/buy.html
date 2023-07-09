@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="row featurette">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-body">
+
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><h4>Артикул</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.title}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Производитель</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.proizvod}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Дата</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.time.strftime('%d-%m-%Y')}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Количество</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.qty}} шт.</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Цена</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.price}} руб.</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Статус</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.status}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Штрихкод</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.barcode}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>globalId</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.globalId}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Покупатель (заказчик)</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.buyer}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h4>UserId</h4></td>
+                        <td><h4 style="font-weight:normal">{{search_art.userId}}</h4></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    {%if photo == None%}
+    <div class="col-md-5">
+        <svg style="border:2px solid black;"
+             class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+             height="500" xmlns="http://www.w3.org/2000/svg">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#eee"></rect>
+            <text x="50%" y="50%" fill="#aaa"
+                  dy=".3em">500x500
+            </text>
+        </svg>
+        {% else %}
+        <div class="col-md-5">
+             <style>
+             img {
+                border: 3px solid #000000;}
+             </style>
+            <img src="/static/avatar.png" width="500" height="500">
+            {%endif%}
+            <!-- Кнопка перехода к файлу приема товара -->
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <br>
+                <button class="btn btn-primary" type="button">Видео файл: {{search_art.time.strftime('%d-%m-%Y')}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
