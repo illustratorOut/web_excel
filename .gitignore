@@ -10,3 +10,5 @@ gen
 /__pycache__
 /files
 /instance
+/file_excel
+sqlite_python.db

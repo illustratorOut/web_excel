@@ -1,4 +1,3 @@
-import time
 import os
 from modul_file import file_extension
 from flask import Flask, render_template, request, redirect, send_file
@@ -6,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date, timedelta, datetime
 from loading import Load_File_Excel
 from modul_render_photo import get_developer_info
-from PIL import Image
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
@@ -142,6 +140,7 @@ def loading():
             name = file_extension(pach_file)
 
             file = Load_File_Excel(name)
+
             a = file.loading_file()
 
             if a:
@@ -247,6 +246,12 @@ def product_main():
 
 @app.route('/сlient', methods=['POST', 'GET'])
 def client():
+    # client1 = Item.query.filter(Item.buyer).all()
+    from sqlalchemy import distinct
+    client1 = Item.query.distinct(Item.buyer).all()
+    a = set(str(i.buyer).title() for i in client1)
+    print(sorted(a))
+
     if request.method == "POST":
         search = request.form['search_art'].strip()
         # search_art = Item.query.filter(Item.userId == search).filter(Item.status != "Принят")
@@ -257,11 +262,10 @@ def client():
         #     print(i.oders)
         #     if "нал" in i.oders:
         #         print("fdsgklfdngjhdfjklgndfjngjndfgj")
-
         if len(list(Item.query.filter(Item.userId == search))):
-            return render_template('сlient.html', date3=search_art)
+            return render_template('сlient.html', date3=search_art, newdata=date.today(), client=client1)
 
-    return render_template('сlient.html')
+    return render_template('сlient.html', newdata=date.today(), client=client1)
 
 
 @app.route('/save_excel/<userId>', methods=['POST', 'GET'])
@@ -284,10 +288,15 @@ def save_excel(userId):
 
         df = pd.DataFrame(result)
 
-        df.to_excel(f'./file_excel/{name}.xlsx')
-
-        path = f"./file_excel/{name}.xlsx"
-        return send_file(path, as_attachment=True)
+        if os.path.isdir("file_excel"):
+            df.to_excel(f'./file_excel/{name}.xlsx')
+            path = f"./file_excel/{name}.xlsx"
+            return send_file(path, as_attachment=True)
+        else:
+            os.mkdir("file_excel")
+            df.to_excel(f'./file_excel/{name}.xlsx')
+            path = f"./file_excel/{name}.xlsx"
+            return send_file(path, as_attachment=True)
 
     # return render_template('save_excel.html')
 

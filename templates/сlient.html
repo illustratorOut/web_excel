@@ -7,18 +7,31 @@
         a {text-decoration: none; /* Отменяем подчеркивание у ссылки */}
 
 
-
-
-
-
-
 </style>
 
 
 <form method="POST">
-    <div class="input-group mb-3">
-        <input oninput="this.value = this.value.toUpperCase()" value="{{value1}}" type="search" name="search_art"
+
+
+    <div class="input-group mb-3 p-3">
+        <div class="w-20">
+            <input type="date" max="{{newdata}}" class=" w-20 p-3 form-control " name="data_" placeholder="Время"
+                   value="{{newdata}}">
+        </div>
+
+        {%if client%}
+        <datalist id="browsers">
+            {%for i in client%}
+            <option value="{{i.userId}}">{{i.buyer}}</option>
+            {%endfor%}
+        </datalist>
+        {% endif %}
+
+        <input list="browsers" oninput="this.value = this.value.toUpperCase()" value="{{value1}}" type="search"
+               name="search_art"
                class="form-control form-control-lg" placeholder="Введите UserId пользователя" autofocus>
+
+
         <button type="submit" class="btn btn-primary">Найти</button>
     </div>
 </form>
