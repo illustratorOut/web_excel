@@ -8,3 +8,8 @@ out
 gen
 /venv
 /__pycache__
+/files
+/instance
+/file_excel
+sqlite_python.db
+/instance

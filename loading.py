@@ -30,7 +30,7 @@ class Load_File_Excel:
                         11].replace(
                         str(oders).split("=")[0], "")
                     globalId = sheet[row][27].value
-                    buyer = sheet[row][28].value
+                    buyer = str(sheet[row][28].value).title()
                     userId = sheet[row][29].value
                     box = sheet[row][44].value
 
