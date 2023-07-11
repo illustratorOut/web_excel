@@ -246,14 +246,12 @@ def product_main():
 
 @app.route('/сlient', methods=['POST', 'GET'])
 def client():
-    # client1 = Item.query.filter(Item.buyer).all()
-    from sqlalchemy import distinct
-    client1 = Item.query.distinct(Item.buyer).all()
-    a = set(str(i.buyer).title() for i in client1)
-    print(sorted(a))
+    client1 = Item.query.order_by(Item.buyer).filter_by(buyer=Item.buyer)
+    client = {i.buyer: i.userId for i in client1}
 
     if request.method == "POST":
         search = request.form['search_art'].strip()
+        date_ = request.form['data_']
         # search_art = Item.query.filter(Item.userId == search).filter(Item.status != "Принят")
         search_art = Item.query.filter(Item.userId == search)
 
@@ -263,9 +261,10 @@ def client():
         #     if "нал" in i.oders:
         #         print("fdsgklfdngjhdfjklgndfjngjndfgj")
         if len(list(Item.query.filter(Item.userId == search))):
-            return render_template('сlient.html', date3=search_art, newdata=date.today(), client=client1)
+            return render_template('сlient.html', date3=search_art, newdata=date.today(), newdata1=date_,
+                                   client=client)
 
-    return render_template('сlient.html', newdata=date.today(), client=client1)
+    return render_template('сlient.html', newdata=date.today(), client=client)
 
 
 @app.route('/save_excel/<userId>', methods=['POST', 'GET'])

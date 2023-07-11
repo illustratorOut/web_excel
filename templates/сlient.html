@@ -7,22 +7,31 @@
         a {text-decoration: none; /* Отменяем подчеркивание у ссылки */}
 
 
+
+
 </style>
 
 
 <form method="POST">
 
-
     <div class="input-group mb-3 p-3">
         <div class="w-20">
+            {%if not newdata1%}
             <input type="date" max="{{newdata}}" class=" w-20 p-3 form-control " name="data_" placeholder="Время"
                    value="{{newdata}}">
+
+            {%else%}
+            <input type="date" max="{{newdata}}" class=" w-20 p-3 form-control " name="data_" placeholder="Время"
+                   value="{{newdata1}}">
+            {%endif%}
+
         </div>
 
         {%if client%}
         <datalist id="browsers">
-            {%for i in client%}
-            <option value="{{i.userId}}">{{i.buyer}}</option>
+            {%for i, v in client.items()%}
+<!--            <option value="{{i.userId}}">{{i.buyer}}</option>-->
+            <option value="{{v}}">{{i}}</option>
             {%endfor%}
         </datalist>
         {% endif %}
@@ -51,7 +60,7 @@
         <div class="col">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox">
-                <label class="form-check-label">dhggdf</label>
+                <label class="form-check-label">Наличные</label>
             </div>
         </div>
         <div class="col">
